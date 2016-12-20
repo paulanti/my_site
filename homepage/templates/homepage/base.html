@@ -1,0 +1,134 @@
+{% load staticfiles %}
+{% load sidebar %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+
+    <title>PAVEL YANSAPOV</title>
+
+    <!-- Bootstrap core CSS -->
+{#    <link href="{%  static 'css/bootstrap.min.css' %}" rel="stylesheet">#}
+
+    <!-- Custom styles for this template -->
+{#    <link href="{% static 'less/styles.less' %}" rel="stylesheet/less">#}
+{#    <script src="{% static 'js/less.min.js' %}"></script>#}
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <link href="{% static 'css/fruity.css' %}" rel="stylesheet">
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/devicon.css' %}" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/blog">PAVEL YANSAPOV.</a>
+        </div>
+        <div class="navbar-collapse collapse navbar-right">
+          <ul class="nav navbar-nav">
+            <li class="{% if request.get_full_path == '/' %}active{% endif %}"><a href="/">ABOUT ME</a></li>
+            <li class="{% if 'blog' in request.path %}active{% endif %}"><a href="/blog">BLOG</a></li>
+            <li class="{% if 'contact' in request.path %}active{% endif %}"><a href="/contact">CONTACT</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <!-- *****************************************************************************************************************
+	 BLUE WRAP
+	 ***************************************************************************************************************** -->
+	<div class="blue">
+	    <div class="container">
+			<div class="row">
+                {% if 'blog/post' in request.path %}
+				<h3>Post.</h3>
+                {% elif request.get_full_path == "/" %}
+                <h3>About Me.</h3>
+                {% elif 'contact' in request.path %}
+				<h3>Contact.</h3>
+                {% elif request.path|slice:"6:" != "" %}
+                <h3>Posts with tag #{{ request.path|slice:"6:"|cut:"/"|title }}.</h3>
+                {% elif 'blog' in request.path %}
+                <h3>Blog List.</h3>
+                {% endif %}
+			</div><!-- /row -->
+	    </div> <!-- /container -->
+	</div><!-- /blue -->
+
+	<!-- *****************************************************************************************************************
+	 BLOG CONTENT
+	 ***************************************************************************************************************** -->
+
+	 <div class="container mtb">
+	 	<div class="row">
+            <div class="col-lg-8">
+                {% block content %}
+                {% endblock %}
+            </div>
+    <!-- *****************************************************************************************************************
+	 SIDEBAR
+	 ***************************************************************************************************************** -->
+            <div class="col-lg-4">
+		 		{% show_sidebar %}
+	 		</div>
+	 	</div><! --/row -->
+	 </div><! --/container -->
+    <!-- *****************************************************************************************************************
+	 FOOTER
+	 ***************************************************************************************************************** -->
+	 <div id="footer">
+	 	<div class="container">
+		 	<div class="row">
+		 		<div class="col-lg-4">
+		 			<h4>Copyrights</h4>
+                    <hr>
+		 			<p>Copyright &copy; Pavel Yansapov 2016-2017</p>
+		 		</div>
+		 		<div class="col-lg-4">
+		 			<h4>Social Links</h4><hr>
+		 			<p>
+		 				<a href="https://www.facebook.com/paul.anteee"><i class="fa fa-facebook"></i></a>
+		 				<a href="https://www.linkedin.com/in/pavel-yansapov-019633129?trk=hp-identity-name"><i class="fa fa-linkedin"></i></a>
+		 				<a href="skype:paul_anti?chat"><i class="fa fa-skype"></i></a>
+		 				<a href="https://telegram.me/paul_anti"><i class="fa fa-telegram"></i></a>
+		 				<a href="https://github.com/paulanti"><i class="fa fa-github-square"></i></a>
+                        <a href="mailto:pavel.yansapov@gmail.com"><i class="fa fa-envelope"></i></a>
+		 			</p>
+		 		</div>
+		 		<div class="col-lg-4">
+		 			<h4>Contacts</h4><hr>
+		 			<p><span class="glyphicon glyphicon-envelope"></span> pavel.yansapov@gmail.com</p>
+                    <p><span class="glyphicon glyphicon-earphone"></span> +7 922 614-77-44 </p>
+		 		</div>
+
+		 	</div><! --/row -->
+	 	</div><! --/container -->
+	 </div><! --/footerwrap -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+
+  </body>
+</html>

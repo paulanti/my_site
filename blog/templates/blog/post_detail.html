@@ -1,0 +1,20 @@
+{% extends 'homepage/base.html' %}
+{% load md2 %}
+{% load pygmentify %}
+
+{% block content %}
+
+    <h3 class="ctitle"><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h3>
+    <p><csmall>Опубликовано: {{ post.published_date|date:"d.m.Y" }} | {% if post.tags.all %}Тэги:</csmall>
+    {% for tag in post.tags.all %}
+        <a class="btn-default" href="{% url 'posts_by_tag' tag=tag %}" role="button">{{ tag|title }}</a>
+    {% endfor %}{% endif %}</p>
+
+    {% pygment %}
+    <p>{{ post.text|markdown }}</p>
+    {% endpygment %}
+
+    {% load disqus_tags %}
+    {% disqus_show_comments %}
+
+{% endblock content %}

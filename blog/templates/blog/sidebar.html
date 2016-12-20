@@ -1,0 +1,7 @@
+<h4>Тэги</h4>
+<hr>
+<p>
+    {% for tag in tags %}
+        <a class="btn" href="{% url 'posts_by_tag' tag=tag.name %}" role="button">{{ tag.name|title }} <span class="badge">{{ tag.count_post }}</span></a>
+    {% endfor %}
+</p>

@@ -1,0 +1,27 @@
+{% extends 'homepage/base.html' %}
+{% load md2 %}
+
+{% block content %}
+    {% for post in posts %}
+        <h3 class="ctitle"><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h3>
+        <p><csmall>Опубликовано: {{ post.published_date|date:"d.m.Y" }} | {% if post.tags.all %}Тэги:</csmall>
+        {% for tag in post.tags.all %}
+            <a class="btn-default" href="{% url 'posts_by_tag' tag=tag %}" role="button">{{ tag|title }}</a>
+        {% endfor %}{% endif %}</p>
+        <p>{{ post.text|markdown|truncatechars:400 }}</p>
+        <p><a href="{% url 'post_detail' pk=post.pk %}">[ Читать полностью ]</a></p>
+        <hr>
+        <div class="spacing"></div>
+    {% endfor %}
+
+    <div class="text-center">
+        <ul class="pagination">
+            <li class="{% if not posts.has_previous %}disabled{% endif %}"><a href="{% if posts.has_previous %}?page={{ posts.previous_page_number }}{% endif %}"><<</a></li>
+            {% for number in posts.paginator.page_range %}
+            <li class="{% if posts.number == number %}active{% endif %}"><a href="?page={{ number }}">{{ number }}</a></li>
+            {% endfor %}
+            <li class="{% if not posts.has_next %}disabled{% endif %}"><a href="{% if posts.has_next %}?page={{ posts.next_page_number }}{% endif %}">>></a></li>
+        </ul>
+    </div>
+{% endblock content %}
+
